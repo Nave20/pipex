@@ -6,7 +6,7 @@
 /*   By: vpirotti <vpirotti@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:25:36 by vpirotti          #+#    #+#             */
-/*   Updated: 2025/02/19 09:25:36 by vpirotti         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:36:11 by vpirotti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,19 @@ char	*path_finder(char **paths, char *cmd)
 		return (tmp);
 }
 
-void	cmd_manager_one(char **path, char **argv, char **env, int *cdt)
+void	cmd_manager_one(char **path, char **argv, char **env, int fd, int *cdt)
 {
 	char	*right_path;
 	char	**cmd;
 
 	cmd = get_cmd(argv[2]);
 	right_path = path_finder(path, cmd[0]);
-	cmd_one(right_path, cmd, env, cdt);
+	cmd_one(right_path, cmd, env, fd, cdt);
 	cleaner(cmd);
 	free(right_path);
 }
 
-void	cmd_manager_two(char **path, char **argv, char **env)
+void	cmd_manager_two(char **path, char **argv, char **env, int *cdt)
 {
 	char	*right_path;
 	char	**cmd;
@@ -82,8 +82,7 @@ void	cmd_manager_two(char **path, char **argv, char **env)
 
 	cmd = get_cmd(argv[3]);
 	right_path = path_finder(path, cmd[0]);
-	fd = file_output(argv[4]);
-	cmd_two(right_path, cmd, env, fd);
+	cmd_two(right_path, cmd, env, argv, cdt);
 	cleaner(cmd);
 	free(right_path);
 }

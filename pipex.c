@@ -21,11 +21,6 @@ int	main(int argc, char **argv, char **env)
 		return (write(2, "Error\n", 6), 0);
 	path = get_path(env);
 	servo(path, argv, env);
-
-	// cmd = get_cmd(argv[2]);
-	// exec(paths, cmd, env);
-	// cmd = get_cmd(argv[3]);
-	// exec2(paths, cmd, env);
 	ft_printf("done");
 	cleaner(path);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: vpirotti <vpirotti@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 12:49:54 by vpirotti          #+#    #+#             */
-/*   Updated: 2025/02/19 12:49:54 by vpirotti         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:30:32 by vpirotti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 void	cmd_one(char *path, char **cmd, char **env, int *cdt)
 {
-	char	*tmp;
 	pid_t	pid;
 
 	pid = fork();
@@ -41,16 +40,18 @@ void	cmd_one(char *path, char **cmd, char **env, int *cdt)
 	}
 }
 
-void	cmd_two(char *path, char **cmd, char **env, int fd)
+void	cmd_two(char *path, char **cmd, char **env, char **argv)
 {
 	pid_t	pid;
+	int		fd;
 
+	fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC);
 	pid = fork();
 	if (pid == -1)
 		return (perror(NULL));
-	else if (pid == 0)
+	if (pid == 0)
 	{
-		dup2(fd, 1);
+		dup2(fd, fd);
 		execve(path, cmd, env);
 	}
 	else
@@ -61,14 +62,12 @@ int		servo(char **path, char **argv, char **env)
 {
 	int		output;
 	int		conduit[2];
-	char	*tmp;
-	char	**cmd;
 
 	file_input(argv[1]);
-	output = file_input(argv[4]);
 	if (pipe(conduit) == -1)
 		return (perror(NULL), -1);
 	cmd_manager_one(path, argv, env, conduit);
+	cmd_manager_two(path, argv, env);
 	return (0);
 }
 
@@ -110,7 +109,7 @@ int		servo(char **path, char **argv, char **env)
 // 	int		caramel;
 // 	pid_t	pid;
 //
-// 	caramel =
+// 	caramel = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC);
 // 	pid = fork();
 // 	if (pid == -1)
 // 	{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpirotti <vpirotti@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/29 14:00:31 by vpirotti          #+#    #+#             */
-/*   Updated: 2024/11/29 14:00:31 by vpirotti         ###   ########.fr       */
+/*   Created: 2024/12/12 14:39:32 by vpirotti          #+#    #+#             */
+/*   Updated: 2024/12/12 14:40:02 by vpirotti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 	i = 0;
 	res = (char *) malloc ((j + len) * sizeof(char));
 	if (!res)
-		return (free (s1), NULL);
+		return (free(s1), res);
 	ft_strlcpy(res, s1, j);
 	while (i < len)
 	{
@@ -90,6 +90,8 @@ void	*ft_memset(void *mem, int c, size_t size)
 	size_t	i;
 
 	i = 0;
+	if (!mem)
+		return (NULL);
 	str = (char *) mem;
 	while (i < size)
 	{

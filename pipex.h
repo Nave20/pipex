@@ -6,7 +6,7 @@
 /*   By: vpirotti <vpirotti@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 08:35:48 by vpirotti          #+#    #+#             */
-/*   Updated: 2025/02/19 08:35:48 by vpirotti         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:35:56 by vpirotti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
+# endif
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 10
 # endif
 
 //-------------------------------GNL-------------------------------
@@ -39,20 +43,21 @@ char	*ft_strdup(const char *src);
 char	**ft_split(char const *s, char c);
 char	*ft_strnstr(const char *src, const char *tofind, size_t size);
 int		ft_printf(const char *s, ...);
+void	ft_putendl_fd(char *s, int fd);
 
 //-------------------------------PIPEX-------------------------------
 //_cmd
 char	**get_path(char **env);
 char	**get_cmd(char *str);
-void	cmd_manager_one(char **path, char **argv, char **env, int *cdt);
-void	cmd_manager_two(char **path, char **argv, char **env);
+void	cmd_manager_one(char **path, char **argv, char **env, int fd, int *cdt);
+void	cmd_manager_two(char **path, char **argv, char **env, int *cdt);
 char	*path_finder(char **paths, char *cmd);
 //_utils
 void	cleaner(char **str);
 //_exec
 int		servo(char **path, char **argv, char **env);
-void	cmd_one(char *path, char **cmd, char **env, int *cdt);
-void	cmd_two(char *path, char **cmd, char **env, int fd);
+void	cmd_one(char *path, char **cmd, char **env, int fd, int *cdt);
+void	cmd_two(char *path, char **cmd, char **env, char **argv, int *cdt);
 //_dev
 void	printer(char **a);
 //_fd

@@ -4,8 +4,8 @@ SOURCES =	pipex.c					\
 			pipex_exec.c			\
 			pipex_fd.c				\
 			pipex_dev.c				\
-			get_next_line.c			\
-			get_next_line_utils.c	\
+			get_next_line_bonus.c			\
+			get_next_line_utils_bonus.c	\
 
 
 OBJS	=	${SOURCES:%.c=${OBJDIR}%.o}
