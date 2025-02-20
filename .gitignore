@@ -1,0 +1,13 @@
+a.out
+CMakeLists.txt
+cmake-build-debug
+*.o
+.idea
+libftTester
+main.c
+*.a
+visualizer
+imgui.ini
+OBJS
+push_swap_tester
+push_swap
