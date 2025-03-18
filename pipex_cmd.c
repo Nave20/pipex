@@ -61,28 +61,3 @@ char	*path_finder(char **paths, char *cmd)
 	else
 		return (tmp);
 }
-
-void	cmd_manager_one(char **path, char **argv, char **env, int fd, int *cdt)
-{
-	char	*right_path;
-	char	**cmd;
-
-	cmd = get_cmd(argv[2]);
-	right_path = path_finder(path, cmd[0]);
-	cmd_one(right_path, cmd, env, fd, cdt);
-	cleaner(cmd);
-	free(right_path);
-}
-
-void	cmd_manager_two(char **path, char **argv, char **env, int *cdt)
-{
-	char	*right_path;
-	char	**cmd;
-	int		fd;
-
-	cmd = get_cmd(argv[3]);
-	right_path = path_finder(path, cmd[0]);
-	cmd_two(right_path, cmd, env, argv, cdt);
-	cleaner(cmd);
-	free(right_path);
-}

@@ -15,6 +15,7 @@
 
 # include <stddef.h>
 # include <stdlib.h>
+# include <wait.h>
 # include <unistd.h>
 # include <stdarg.h>
 #include <fcntl.h>
@@ -49,19 +50,14 @@ void	ft_putendl_fd(char *s, int fd);
 //_cmd
 char	**get_path(char **env);
 char	**get_cmd(char *str);
-void	cmd_manager_one(char **path, char **argv, char **env, int fd, int *cdt);
-void	cmd_manager_two(char **path, char **argv, char **env, int *cdt);
 char	*path_finder(char **paths, char *cmd);
 //_utils
 void	cleaner(char **str);
 //_exec
-int		servo(char **path, char **argv, char **env);
-void	cmd_one(char *path, char **cmd, char **env, int fd, int *cdt);
-void	cmd_two(char *path, char **cmd, char **env, char **argv, int *cdt);
+void	cmd_1(char **argv, char **env, int *fd);
+void	cmd_2(char **argv, char **env, int *fd);
 //_dev
 void	printer(char **a);
 //_fd
-int		file_output(char *name);
-int		file_input(char	*name);
 
 #endif

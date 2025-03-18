@@ -14,61 +14,43 @@
 
 #include "pipex.h"
 
-void	cmd_one(char *path, char **cmd, char **env, int *cdt)
+void	execution(char *argv, char **env)
 {
-	pid_t	pid;
+	char	**cmd;
+	char	**paths;
+	char	*r_path;
 
-	pid = fork();
-	if (pid == -1)
-	{
-		close(cdt[0]);
-		close(cdt[1]);
-		return (perror(NULL));
-	}
-	else if (pid == 0)
-	{
-		close(cdt[0]);
-		dup2(cdt[1], 1);
-		close(cdt[1]);
-		execve(path, cmd, env);
-	}
-	else
-	{
-		close(cdt[1]);
-		dup2(cdt[0], 0);
-		close(cdt[0]);
-	}
+	paths = get_path(env);
+	cmd = get_cmd(argv);
+	r_path = path_finder(paths, cmd[0]);
+	cleaner(paths);
+	execve(r_path, cmd, env);
 }
 
-void	cmd_two(char *path, char **cmd, char **env, char **argv)
+void	cmd_1(char **argv, char **env, int *fd)
 {
-	pid_t	pid;
-	int		fd;
+	int	infile;
 
-	fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC);
-	pid = fork();
-	if (pid == -1)
-		return (perror(NULL));
-	if (pid == 0)
-	{
-		dup2(fd, fd);
-		execve(path, cmd, env);
-	}
-	else
-		return ;
+	infile = open(argv[1], O_RDONLY, 0777);
+	if (infile == -1)
+		return;
+	dup2(infile, STDIN_FILENO);
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[0]);
+	execution(argv[2], env);
 }
 
-int		servo(char **path, char **argv, char **env)
+void	cmd_2(char **argv, char **env, int *fd)
 {
-	int		output;
-	int		conduit[2];
+	int	outfile;
 
-	file_input(argv[1]);
-	if (pipe(conduit) == -1)
-		return (perror(NULL), -1);
-	cmd_manager_one(path, argv, env, conduit);
-	cmd_manager_two(path, argv, env);
-	return (0);
+	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (outfile == -1)
+		return;
+	dup2(fd[0], STDIN_FILENO);
+	dup2(outfile, STDOUT_FILENO);
+	close(fd[1]);
+	execution(argv[3], env);
 }
 
 // void	exec(char **path, char **cmd, char **env)
