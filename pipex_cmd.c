@@ -19,8 +19,15 @@ char	**get_path(char **env)
 	int	i;
 
 	i = 0;
-	while (!ft_strnstr(env[i],"PATH=", 1000))
+
+	while (env[i] != NULL)
+	{
+		if (ft_strnstr(env[i], "PATH=", 5))
+			break;
 		i++;
+	}
+	if (!env[i])
+		return (path_error(), NULL);
 	output = ft_split(&env[i][5], ':');
 	i = 0;
 	while (output[i])
@@ -41,23 +48,22 @@ char	**get_cmd(char *str)
 	return (output);
 }
 
-char	*path_finder(char **paths, char *cmd)
+char	*path_finder2(char **paths, char *cmd)
 {
-	int		i;
 	char	*tmp;
-	i = 0;
+	int		i;
+
+	i = 1;
 	tmp = ft_strjoin(paths[0], cmd);
-	while (access(tmp, X_OK) != 0)
+	if (access(tmp, X_OK) == 0)
+		return (tmp);
+	while (paths[i])
 	{
-		i++;
 		free(tmp);
 		tmp = ft_strjoin(paths[i], cmd);
+		if (access(tmp, X_OK) == 0)
+			return (tmp);
+		i++;
 	}
-	if (access(tmp, X_OK) != 0)
-	{
-		free(tmp);
-		return (NULL);
-	}
-	else
-		return (tmp);
+	return (error(), NULL);
 }

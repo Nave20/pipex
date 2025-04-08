@@ -51,9 +51,12 @@ void	ft_putendl_fd(char *s, int fd);
 char	**get_path(char **env);
 char	**get_cmd(char *str);
 char	*path_finder(char **paths, char *cmd);
+char	*path_finder2(char **paths, char *cmd);
 //_utils
 void	cleaner(char **str);
 //_exec
+void	error(void);
+void	path_error(void);
 void	cmd_1(char **argv, char **env, int *fd);
 void	cmd_2(char **argv, char **env, int *fd);
 //_dev

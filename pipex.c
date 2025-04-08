@@ -18,6 +18,21 @@ int	main(int argc, char **argv, char **env)
 	int		status;
 	pid_t	mpid;
 
+	//  char	**cmd;
+	//  char	**paths;
+	//  char	*r_path;
+	//
+	// paths = get_path(env);
+	// if (!paths)
+	// 	return (0);
+	// printer(paths);
+	// cmd = get_cmd(argv[2]);
+	// printer(paths);
+	// cleaner(paths);
+	// ft_printf(path_finder2(paths, cmd[0]));
+	// r_path = path_finder2(paths, cmd[0]);
+	// ft_printf(r_path);
+
 	if (argc == 5)
 	{
 		if (pipe(mfd) == -1)
@@ -33,7 +48,7 @@ int	main(int argc, char **argv, char **env)
 	else
 	{
 		write(2, "Error, wrong input. Should be as follow :\n", 42);
-		write(2, "infile cmd1 cmd2 outfile \n", 42);
+		write(2, "infile cmd1 cmd2 outfile  \n", 28);
 	}
 	return (0);
 }
