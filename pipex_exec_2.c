@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_exec_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpirotti <vpirotti@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/18 13:25:36 by vpirotti          #+#    #+#             */
-/*   Updated: 2025/02/18 13:25:36 by vpirotti         ###   ########.fr       */
+/*   Created: 2025/04/15 09:33:05 by vpirotti          #+#    #+#             */
+/*   Updated: 2025/04/15 09:33:05 by vpirotti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv, char **env)
+int	fork_two(char **argv, char **env, int mfd[2], int *status)
 {
-	int		mfd[2];
-	int		status;
 	pid_t	mpid;
 
-	if (argc == 5)
-	{
-		if (pipe(mfd) == -1)
-			return (0);
-		mpid = fork();
-		if (mpid == -1)
-			return (0);
-		if (mpid == 0)
-			cmd_1(argv, env, mfd);
-		waitpid(mpid, &status, 0);
-		fork_two(argv, env, mfd, &status);
-	}
-	else
-	{
-		write(2, "Error, wrong input. Should be as follow :\n", 42);
-		write(2, "infile cmd1 cmd2 outfile  \n", 28);
-	}
-	return (status);
+	mpid = fork();
+	if (mpid == -1)
+		return (-1);
+	if (mpid == 0)
+		cmd_2(argv, env, mfd);
+	waitpid(mpid, status, 0);
+	return (0);
 }

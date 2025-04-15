@@ -17,7 +17,6 @@ int	file_input(char	*name)
 	int	fd;
 
 	fd = open(name, O_RDONLY);
-	// dup2(fd, 0);
 	return (fd);
 }
 

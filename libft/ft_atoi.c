@@ -33,8 +33,8 @@ long	ft_atoi(const char *str, int *bool)
 	}
 	while (str[i] > 47 && str[i] < 58)
 	{
-        if (res * 10 + (str[i] - 48) > INT_MAX)
-          *bool = -1;
+		if (res * 10 + (str[i] - 48) > INT_MAX)
+			*bool = -1;
 		res = res * 10 + (str[i] - 48);
 		i++;
 	}

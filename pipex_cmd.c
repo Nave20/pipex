@@ -16,14 +16,13 @@ char	**get_path(char **env)
 {
 	char	**output;
 	char	*ptr;
-	int	i;
+	int		i;
 
 	i = 0;
-
 	while (env[i] != NULL)
 	{
 		if (ft_strnstr(env[i], "PATH=", 5))
-			break;
+			break ;
 		i++;
 	}
 	if (!env[i])

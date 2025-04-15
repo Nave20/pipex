@@ -4,6 +4,7 @@ SOURCES =	pipex.c						\
 			pipex_exec.c				\
 			pipex_fd.c					\
 			pipex_dev.c					\
+			pipex_exec_2.c				\
 			get_next_line_bonus.c		\
 			get_next_line_utils_bonus.c	\
 

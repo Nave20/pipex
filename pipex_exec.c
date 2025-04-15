@@ -22,7 +22,7 @@ void	error(void)
 
 void	path_error(void)
 {
-	perror("\033[31mNo path was found");
+	perror("\033[31mcommand not found");
 	exit(EXIT_FAILURE);
 }
 

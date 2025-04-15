@@ -18,7 +18,7 @@
 # include <wait.h>
 # include <unistd.h>
 # include <stdarg.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
@@ -61,6 +61,7 @@ void	cmd_1(char **argv, char **env, int *fd);
 void	cmd_2(char **argv, char **env, int *fd);
 //_dev
 void	printer(char **a);
-//_fd
+//_exec_2
+int		fork_two(char **argv, char **env, int mfd[2], int *status);
 
 #endif
