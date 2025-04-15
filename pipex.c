@@ -27,7 +27,8 @@ int	main(int argc, char **argv, char **env)
 			return (0);
 		if (mpid == 0)
 			cmd_1(argv, env, mfd);
-		waitpid(mpid, &status, 0);
+		if (waitpid(mpid, &status, 0) > 0)
+
 		fork_two(argv, env, mfd, &status);
 	}
 	else

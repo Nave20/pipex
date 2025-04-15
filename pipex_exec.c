@@ -38,7 +38,11 @@ void	execution(char *argv, char **env)
 	cmd = get_cmd(argv);
 	r_path = path_finder2(paths, cmd[0]);
 	cleaner(paths);
-	execve(r_path, cmd, env);
+	if (execve(r_path, cmd, env) == -1)
+	{
+		perror("execve");
+		exit(127);
+	}
 }
 
 void	cmd_1(char **argv, char **env, int *fd)

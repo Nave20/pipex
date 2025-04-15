@@ -21,6 +21,5 @@ int	fork_two(char **argv, char **env, int mfd[2], int *status)
 		return (-1);
 	if (mpid == 0)
 		cmd_2(argv, env, mfd);
-	waitpid(mpid, status, 0);
 	return (0);
 }
