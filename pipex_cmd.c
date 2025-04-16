@@ -25,7 +25,7 @@ char	**get_path(char **env)
 			break ;
 		i++;
 	}
-	if (!env[i])
+	if (!env || !env[i])
 		return (path_error(), NULL);
 	output = ft_split(&env[i][5], ':');
 	i = 0;
@@ -43,7 +43,9 @@ char	**get_cmd(char *str)
 {
 	char	**output;
 
-	output = ft_split(&str[0], ' ');
+	if (!str)
+		return (NULL);
+	output = ft_split(str, ' ');
 	return (output);
 }
 
@@ -64,5 +66,6 @@ char	*path_finder2(char **paths, char *cmd)
 			return (tmp);
 		i++;
 	}
-	return (error(), NULL);
+	free(tmp);
+	return (NULL);
 }

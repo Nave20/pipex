@@ -34,12 +34,21 @@ void	execution(char *argv, char **env)
 
 	paths = get_path(env);
 	if (!paths)
-		return (error());
+		return ;
 	cmd = get_cmd(argv);
+	if (!cmd)
+		return (cleaner(paths));
 	r_path = path_finder2(paths, cmd[0]);
+	if (!r_path)
+	{
+		cleaner(paths);
+		return (cleaner(cmd));
+	}
 	cleaner(paths);
 	if (execve(r_path, cmd, env) == -1)
 	{
+		cleaner(cmd);
+		free(r_path);
 		perror("execve");
 		exit(127);
 	}
@@ -49,12 +58,22 @@ void	cmd_1(char **argv, char **env, int *fd)
 {
 	int	infile;
 
+	close(fd[0]);
 	infile = open(argv[1], O_RDONLY, 0777);
 	if (infile == -1)
 		return (error());
-	dup2(fd[1], STDOUT_FILENO);
-	dup2(infile, STDIN_FILENO);
-	close(fd[0]);
+	if (dup2(fd[1], STDOUT_FILENO) == -1)
+	{
+		perror("dup2");
+		exit(EXIT_FAILURE);
+	}
+	close(fd[1]);
+	if (dup2(infile, STDIN_FILENO) == -1)
+	{
+		perror("dup2");
+		exit(EXIT_FAILURE);
+	}
+	close(infile);
 	execution(argv[2], env);
 }
 
@@ -62,11 +81,21 @@ void	cmd_2(char **argv, char **env, int *fd)
 {
 	int	outfile;
 
+	close(fd[1]);
 	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (outfile == -1)
 		return (error());
-	dup2(fd[0], STDIN_FILENO);
-	dup2(outfile, STDOUT_FILENO);
-	close(fd[1]);
+	if (dup2(fd[0], STDIN_FILENO) == -1)
+	{
+		perror("dup2");
+		exit(EXIT_FAILURE);
+	}
+	close(fd[0]);
+	if (dup2(outfile, STDOUT_FILENO) == -1)
+	{
+		perror("dup2");
+		exit(EXIT_FAILURE);
+	}
+	close(outfile);
 	execution(argv[3], env);
 }

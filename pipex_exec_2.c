@@ -16,10 +16,7 @@ int	fork_two(char **argv, char **env, int mfd[2], int *status)
 {
 	pid_t	mpid;
 
-	mpid = fork();
-	if (mpid == -1)
-		return (-1);
-	if (mpid == 0)
-		cmd_2(argv, env, mfd);
+
+	// waitpid(mpid, status, NULL);
 	return (0);
 }
