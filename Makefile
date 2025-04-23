@@ -14,7 +14,7 @@ NAME	=	pipex
 
 CC	=	cc
 
-FLAGS	=	-Wall -Wextra -Werror -g3
+FLAGS	=	-Wall -Wextra -Werror
 
 OBJDIR	= OBJS/
 
