@@ -6,7 +6,7 @@
 /*   By: vpirotti <vpirotti@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:25:36 by vpirotti          #+#    #+#             */
-/*   Updated: 2025/02/20 17:36:11 by vpirotti         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:50:50 by vpirotti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**get_path(char **env, int i, int a)
 		if (ft_strnstr(env[a], "PATH=", 5))
 			break ;
 	}
-	if (!env || !env[a])
+	if (!*env)
 		return (path_error(), NULL);
 	output = ft_split(&env[a][5], ':');
 	if (!output)
@@ -58,12 +58,16 @@ char	*path_finder2(char **paths, char *cmd)
 
 	i = 1;
 	tmp = ft_strjoin(paths[0], cmd);
+	if (!tmp)
+		return (NULL);
 	if (access(tmp, X_OK) == 0)
 		return (tmp);
 	while (paths[i])
 	{
 		free(tmp);
 		tmp = ft_strjoin(paths[i], cmd);
+		if (!tmp)
+			return (NULL);
 		if (access(tmp, X_OK) == 0)
 			return (tmp);
 		i++;

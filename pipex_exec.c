@@ -6,7 +6,7 @@
 /*   By: vpirotti <vpirotti@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 12:49:54 by vpirotti          #+#    #+#             */
-/*   Updated: 2025/02/20 17:30:32 by vpirotti         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:40:40 by vpirotti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	execution(char *argv, char **env)
 		exec_two(argv, env);
 		return ;
 	}
-	if (argv[0] == 0)
+	if (argv[0] == 0 || argv[0] == ' ')
 		exit(127);
-	paths = get_path(env, 0, 0);
+	paths = get_path(env, -1, -1);
 	if (!paths)
 		return ;
 	cmd = get_cmd(argv);
@@ -91,7 +91,7 @@ void	cmd_1(char **argv, char **env, int *fd)
 	close(fd[0]);
 	infile = open(argv[1], O_RDONLY, 0777);
 	if (infile == -1)
-		return (error());
+		return (close(fd[1]), error());
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
 	{
 		perror("dup2");
@@ -114,7 +114,7 @@ void	cmd_2(char **argv, char **env, int *fd)
 	close(fd[1]);
 	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (outfile == -1)
-		return (error());
+		return (close(fd[0]), error());
 	if (dup2(fd[0], STDIN_FILENO) == -1)
 	{
 		perror("dup2");
