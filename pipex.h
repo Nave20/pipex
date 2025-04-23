@@ -20,14 +20,6 @@
 # include <stdarg.h>
 # include <fcntl.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
-
-# ifndef OPEN_MAX
-#  define OPEN_MAX 10
-# endif
-
 //-------------------------------LIBFT-------------------------------
 char	*ft_strdup(const char *src);
 char	**ft_split(char const *s, char c);
