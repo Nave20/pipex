@@ -70,7 +70,7 @@ void	execution(char *argv, char **env)
 	}
 	if (argv[0] == 0)
 		exit(127);
-	paths = get_path(env, 0);
+	paths = get_path(env, 0, 0);
 	if (!paths)
 		return ;
 	cmd = get_cmd(argv);

@@ -41,7 +41,7 @@ size_t	ft_strlen(const char *str);
 //-------------------------------PIPEX-------------------------------
 void	error_exit_one(char **cmd, char *path);
 //_cmd
-char	**get_path(char **env, int i);
+char	**get_path(char **env, int i, int a);
 char	**get_cmd(char *str);
 char	*path_finder(char **paths, char *cmd);
 char	*path_finder2(char **paths, char *cmd);
@@ -56,6 +56,7 @@ void	cmd_1(char **argv, char **env, int *fd);
 void	cmd_2(char **argv, char **env, int *fd);
 //_dev
 void	printer(char **a);
+void	mega_clean(char **str, int i, int a, char *ptr);
 //_exec_2
 int		fork_two(char **argv, char **env, int mfd[2], int *status);
 

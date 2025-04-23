@@ -12,29 +12,28 @@
 
 #include "pipex.h"
 
-char	**get_path(char **env, int i)
+char	**get_path(char **env, int i, int a)
 {
 	char	**output;
 	char	*ptr;
 
-	while (env[i] != NULL)
+	while (env[a] != NULL)
 	{
-		if (ft_strnstr(env[i], "PATH=", 5))
+		if (ft_strnstr(env[a], "PATH=", 5))
 			break ;
-		i++;
+		a++;
 	}
-	if (!env || !env[i])
+	if (!env || !env[a])
 		return (path_error(), NULL);
-	output = ft_split(&env[i][5], ':');
+	output = ft_split(&env[a][5], ':');
 	if (!output)
 		return (NULL);
-	i = 0;
 	while (output[i])
 	{
 		ptr = output[i];
 		output[i] = ft_strjoin(output[i], "/");
 		if (!output[i])
-			return (cleaner(output), NULL);
+			return (mega_clean(output, i, a, ptr), NULL);
 		free(ptr);
 		i++;
 	}
