@@ -28,17 +28,6 @@
 #  define OPEN_MAX 10
 # endif
 
-//-------------------------------GNL-------------------------------
-char	*get_next_line(int fd);
-char	*get_buffer_nl(char *buffer, size_t eol);
-size_t	eol_detector(const char *buffer);
-char	*get_buffer(int fd, char *buffer, ssize_t *stop);
-void	*ft_memset(void *mem, int c, size_t size);
-char	*ft_strjoin(char *s1, char const *s2);
-size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-char	*ft_strdup(const char *src);
-size_t	ft_strlen(const char *str);
-
 //-------------------------------LIBFT-------------------------------
 char	*ft_strdup(const char *src);
 char	**ft_split(char const *s, char c);
@@ -46,6 +35,8 @@ char	*ft_strnstr(const char *src, const char *tofind, size_t size);
 int		ft_printf(const char *s, ...);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 void	ft_putendl_fd(char *s, int fd);
+char	*ft_strjoin(char *s1, char const *s2);
+size_t	ft_strlen(const char *str);
 
 //-------------------------------PIPEX-------------------------------
 void	error_exit_one(char **cmd, char *path);
