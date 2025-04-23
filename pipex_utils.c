@@ -11,6 +11,19 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <stdio.h>
+
+void	path_error(void)
+{
+	perror("\033[31mcommand not found");
+	exit(EXIT_FAILURE);
+}
+
+void	error(void)
+{
+	perror("\033[31mError");
+	exit(EXIT_FAILURE);
+}
 
 void	cleaner(char **str)
 {

@@ -14,16 +14,49 @@
 
 #include "pipex.h"
 
-void	error(void)
+int	last_slash(char *argv)
 {
-	perror("\033[31mError");
-	exit(EXIT_FAILURE);
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (argv[i])
+	{
+		if (argv[i] == '/')
+			j = i;
+		i++;
+	}
+	return (j + 1);
 }
 
-void	path_error(void)
+void	exec_two(char *argv, char **env)
 {
-	perror("\033[31mcommand not found");
-	exit(EXIT_FAILURE);
+	char	**cmd;
+	char	*path;
+	char	*r_path;
+	int		i;
+
+	i = last_slash(argv);
+	path = malloc(ft_strlen(argv) * sizeof(char));
+	if (!path)
+		return ;
+	ft_strlcpy(path, argv, i + 1);
+	cmd = get_cmd(&argv[i]);
+	if (!cmd)
+		return(free(path));
+	r_path = ft_strjoin(path, cmd[0]);
+	free(path);
+	if (!r_path)
+		return (cleaner(cmd));
+	if (access(r_path, X_OK) != 0)
+	{
+		free(r_path);
+		cleaner(cmd);
+		exit(127);
+	}
+	if (execve(r_path, cmd, env) == -1)
+		error_exit_one(cmd, r_path);
 }
 
 void	execution(char *argv, char **env)
@@ -32,6 +65,11 @@ void	execution(char *argv, char **env)
 	char	**paths;
 	char	*r_path;
 
+	if (argv[0] == '/')
+	{
+		exec_two(argv, env);
+		return ;
+	}
 	paths = get_path(env);
 	if (!paths)
 		return ;
@@ -42,16 +80,12 @@ void	execution(char *argv, char **env)
 	if (!r_path)
 	{
 		cleaner(paths);
-		return (cleaner(cmd));
+		cleaner(cmd);
+		exit(127);
 	}
 	cleaner(paths);
 	if (execve(r_path, cmd, env) == -1)
-	{
-		cleaner(cmd);
-		free(r_path);
-		perror("execve");
-		exit(127);
-	}
+		error_exit_one(cmd, r_path);
 }
 
 void	cmd_1(char **argv, char **env, int *fd)
