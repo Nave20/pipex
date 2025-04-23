@@ -68,7 +68,9 @@ void	execution(char *argv, char **env)
 		exec_two(argv, env);
 		return ;
 	}
-	paths = get_path(env);
+	if (argv[0] == 0)
+		exit(127);
+	paths = get_path(env, 0);
 	if (!paths)
 		return ;
 	cmd = get_cmd(argv);
@@ -76,11 +78,7 @@ void	execution(char *argv, char **env)
 		return (cleaner(paths));
 	r_path = path_finder2(paths, cmd[0]);
 	if (!r_path)
-	{
-		cleaner(paths);
-		cleaner(cmd);
-		exit(127);
-	}
+		error_three(paths, cmd);
 	cleaner(paths);
 	if (execve(r_path, cmd, env) == -1)
 		error_exit_one(cmd, r_path);

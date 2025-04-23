@@ -41,7 +41,7 @@ size_t	ft_strlen(const char *str);
 //-------------------------------PIPEX-------------------------------
 void	error_exit_one(char **cmd, char *path);
 //_cmd
-char	**get_path(char **env);
+char	**get_path(char **env, int i);
 char	**get_cmd(char *str);
 char	*path_finder(char **paths, char *cmd);
 char	*path_finder2(char **paths, char *cmd);
@@ -50,6 +50,7 @@ void	cleaner(char **str);
 void	path_error(void);
 void	error(void);
 void	error_two(char *path, char **cmd);
+void	error_three(char **path, char **cmd);
 //_exec
 void	cmd_1(char **argv, char **env, int *fd);
 void	cmd_2(char **argv, char **env, int *fd);

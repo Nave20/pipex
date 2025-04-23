@@ -13,3 +13,5 @@ push_swap_tester
 push_swap
 pipex
 42_pipex_tester
+outfile
+test.txt

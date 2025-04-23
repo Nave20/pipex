@@ -32,6 +32,13 @@ void	error_two(char *path, char **cmd)
 	exit(127);
 }
 
+void	error_three(char **path, char **cmd)
+{
+	cleaner(path);
+	cleaner(cmd);
+	exit(127);
+}
+
 void	cleaner(char **str)
 {
 	int	i;

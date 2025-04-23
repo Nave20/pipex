@@ -12,13 +12,11 @@
 
 #include "pipex.h"
 
-char	**get_path(char **env)
+char	**get_path(char **env, int i)
 {
 	char	**output;
 	char	*ptr;
-	int		i;
 
-	i = 0;
 	while (env[i] != NULL)
 	{
 		if (ft_strnstr(env[i], "PATH=", 5))
@@ -28,11 +26,15 @@ char	**get_path(char **env)
 	if (!env || !env[i])
 		return (path_error(), NULL);
 	output = ft_split(&env[i][5], ':');
+	if (!output)
+		return (NULL);
 	i = 0;
 	while (output[i])
 	{
 		ptr = output[i];
 		output[i] = ft_strjoin(output[i], "/");
+		if (!output[i])
+			return (cleaner(output), NULL);
 		free(ptr);
 		i++;
 	}
