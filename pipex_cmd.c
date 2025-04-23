@@ -17,25 +17,26 @@ char	**get_path(char **env, int i, int a)
 	char	**output;
 	char	*ptr;
 
-	while (env[a] != NULL)
+	while (env[++a] != NULL)
 	{
 		if (ft_strnstr(env[a], "PATH=", 5))
 			break ;
-		a++;
 	}
 	if (!env || !env[a])
 		return (path_error(), NULL);
 	output = ft_split(&env[a][5], ':');
 	if (!output)
 		return (NULL);
-	while (output[i])
+	while (output[++i])
 	{
 		ptr = output[i];
 		output[i] = ft_strjoin(output[i], "/");
 		if (!output[i])
-			return (mega_clean(output, i, a, ptr), NULL);
+		{
+			output[i] = ptr;
+			return (cleaner(output), NULL);
+		}
 		free(ptr);
-		i++;
 	}
 	return (output);
 }

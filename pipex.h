@@ -56,7 +56,6 @@ void	cmd_1(char **argv, char **env, int *fd);
 void	cmd_2(char **argv, char **env, int *fd);
 //_dev
 void	printer(char **a);
-void	mega_clean(char **str, int i, int a, char *ptr);
 //_exec_2
 int		fork_two(char **argv, char **env, int mfd[2], int *status);
 

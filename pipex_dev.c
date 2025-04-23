@@ -23,22 +23,3 @@ void	printer(char **a)
 		i++;
 	}
 }
-
-void	mega_clean(char **str, int i, int a, char *ptr)
-{
-	int	j;
-
-	j = 0;
-	free(ptr);
-	while (j < a)
-	{
-		if (j == i)
-			j++;
-		else
-		{
-			free(str[j]);
-			j++;
-		}
-	}
-	free(str);
-}
