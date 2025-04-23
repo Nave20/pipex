@@ -25,6 +25,13 @@ void	error(void)
 	exit(EXIT_FAILURE);
 }
 
+void	error_two(char *path, char **cmd)
+{
+	free(path);
+	cleaner(cmd);
+	exit(127);
+}
+
 void	cleaner(char **str)
 {
 	int	i;

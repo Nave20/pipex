@@ -37,6 +37,8 @@ void	exec_two(char *argv, char **env)
 	char	*r_path;
 	int		i;
 
+	if (!*env)
+		return (path_error());
 	i = last_slash(argv);
 	path = malloc(ft_strlen(argv) * sizeof(char));
 	if (!path)
@@ -44,17 +46,13 @@ void	exec_two(char *argv, char **env)
 	ft_strlcpy(path, argv, i + 1);
 	cmd = get_cmd(&argv[i]);
 	if (!cmd)
-		return(free(path));
+		return (free(path));
 	r_path = ft_strjoin(path, cmd[0]);
 	free(path);
 	if (!r_path)
 		return (cleaner(cmd));
 	if (access(r_path, X_OK) != 0)
-	{
-		free(r_path);
-		cleaner(cmd);
-		exit(127);
-	}
+		error_two(r_path, cmd);
 	if (execve(r_path, cmd, env) == -1)
 		error_exit_one(cmd, r_path);
 }

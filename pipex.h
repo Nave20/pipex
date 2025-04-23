@@ -58,6 +58,7 @@ char	*path_finder2(char **paths, char *cmd);
 void	cleaner(char **str);
 void	path_error(void);
 void	error(void);
+void	error_two(char *path, char **cmd);
 //_exec
 void	cmd_1(char **argv, char **env, int *fd);
 void	cmd_2(char **argv, char **env, int *fd);

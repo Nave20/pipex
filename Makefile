@@ -17,7 +17,7 @@ NAME	=	pipex
 
 CC	=	cc
 
-#FLAGS	=	-Wall -Wextra -Werror
+FLAGS	=	-Wall -Wextra -Werror
 
 OBJDIR	= OBJS/
 
@@ -28,7 +28,6 @@ ${OBJDIR}%.o	:	%.c ${HEADER}
 	${CC} ${FLAGS} -c $< -o $@
 
 ${NAME}	:	${OBJS} ${LIB}  Makefile
-	cp libft/libft.a libft.a
 	${CC} ${FLAGS}  -o $@ ${OBJS} ${LIB}
 
 ${LIB} : FORCE
@@ -42,7 +41,6 @@ clean	:
 
 fclean	:	clean
 	rm -f ${NAME}
-	rm libft.a
 	make fclean -C libft/
 
 re	:	fclean all
