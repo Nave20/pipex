@@ -13,6 +13,12 @@
 #include "pipex.h"
 #include <stdio.h>
 
+void	fd_closer(int mfd[2])
+{
+	close(mfd[0]);
+	close(mfd[1]);
+}
+
 void	error_exit_one(char **cmd, char *path)
 {
 	cleaner(cmd);
@@ -52,12 +58,12 @@ int	main(int argc, char **argv, char **env)
 			return (0);
 		mpid[0] = fork();
 		if (mpid[0] == -1)
-			return (0);
+			return (fd_closer(mfd), 0);
 		if (mpid[0] == 0)
 			cmd_1(argv, env, mfd);
 		mpid[1] = fork();
 		if (mpid[1] == -1)
-			return (-1);
+			return (fd_closer(mfd),-1);
 		if (mpid[1] == 0)
 			cmd_2(argv, env, mfd);
 		enter(mfd, mpid);

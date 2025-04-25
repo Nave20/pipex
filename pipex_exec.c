@@ -94,12 +94,15 @@ void	cmd_1(char **argv, char **env, int *fd)
 		return (close(fd[1]), error());
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
 	{
+		close(infile);
+		close(fd[1]);
 		perror("dup2");
 		exit(EXIT_FAILURE);
 	}
 	close(fd[1]);
 	if (dup2(infile, STDIN_FILENO) == -1)
 	{
+		close(infile);
 		perror("dup2");
 		exit(EXIT_FAILURE);
 	}
@@ -112,17 +115,20 @@ void	cmd_2(char **argv, char **env, int *fd)
 	int	outfile;
 
 	close(fd[1]);
-	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (outfile == -1)
 		return (close(fd[0]), error());
 	if (dup2(fd[0], STDIN_FILENO) == -1)
 	{
+		close(fd[0]);
+		close(outfile);
 		perror("dup2");
 		exit(EXIT_FAILURE);
 	}
 	close(fd[0]);
 	if (dup2(outfile, STDOUT_FILENO) == -1)
 	{
+		close(outfile);
 		perror("dup2");
 		exit(EXIT_FAILURE);
 	}
