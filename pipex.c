@@ -58,12 +58,12 @@ int	main(int argc, char **argv, char **env)
 			return (0);
 		mpid[0] = fork();
 		if (mpid[0] == -1)
-			return (fd_closer(mfd), 0);
+			return (fd_closer(mfd), -1);
 		if (mpid[0] == 0)
 			cmd_1(argv, env, mfd);
 		mpid[1] = fork();
 		if (mpid[1] == -1)
-			return (fd_closer(mfd),-1);
+			return (fd_closer(mfd), -1);
 		if (mpid[1] == 0)
 			cmd_2(argv, env, mfd);
 		enter(mfd, mpid);
